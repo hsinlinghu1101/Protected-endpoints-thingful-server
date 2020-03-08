@@ -161,6 +161,11 @@ function makeExpectedThing(users, thing, reviews=[]) {
   }
 }
 
+function makeAuthHeader(user) {
+  const token = Buffer.from(`${user.user_name}:${user.password}`).toString('base64')
+  return `Basic ${token}`
+}
+
 function calculateAverageReviewRating(reviews) {
   if(!reviews.length) return 0
 
@@ -256,6 +261,7 @@ function seedMaliciousThing(db, user, thing) {
 }
 
 module.exports = {
+  makeAuthHeader,
   makeUsersArray,
   makeThingsArray,
   makeExpectedThing,
